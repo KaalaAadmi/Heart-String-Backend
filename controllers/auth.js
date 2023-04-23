@@ -67,8 +67,9 @@ export const login = async (req, res) => {
           }
         );
         const { password, ...others } = user._doc;
+        const savedUser={...others}
         return res.status(200).json({
-          ...others,
+          savedUser,
           accessToken,
         });
       }
