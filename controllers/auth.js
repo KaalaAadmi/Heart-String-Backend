@@ -21,8 +21,8 @@ export const register = async (req, res) => {
         req.body.password,
         process.env.PASS_SEC
       ).toString(),
-      gender: req.body.gender,
-      image: req.body.image,
+      gender:req.body.gender,
+      image:req.body.image
     });
     console.log(req.body);
     const savedUser = await newUser.save();
@@ -61,7 +61,10 @@ export const login = async (req, res) => {
           {
             ...user,
           },
-          process.env.JWT_SEC
+          process.env.JWT_SEC,
+          {
+            expiresIn: process.env.JWT_EXPIRES_IN*24*60*60,
+          }
         );
         const { password, ...others } = user._doc;
         return res.status(200).json({
@@ -77,3 +80,4 @@ export const login = async (req, res) => {
     });
   }
 };
+
