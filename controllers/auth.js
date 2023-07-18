@@ -55,7 +55,7 @@ export const login = async (req, res) => {
       const OriginalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
 
       if (OriginalPassword !== req.body.password) {
-        return res.status(401).json("Something went wrong!");
+        return res.status(401).json({message:"Email or password is incorrect"});
       } else {
         const accessToken = jwt.sign(
           {

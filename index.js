@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 
 import authRoute from "./routes/auth.js";
+import chatRoute from "./routes/chat.js";
+import inviteRoute from "./routes/invitation.js";
 
 const app = express();
 dotenv.config();
@@ -27,6 +29,8 @@ app.get(`${api}/hello`, (req, res) => {
     .send({ message: "Hello User!\nHow are you? Welcome to my API!" });
 });
 app.use(`${api}/auth`, authRoute);
+app.use(`${api}/chat`, chatRoute);
+app.use(`${api}/invite`, inviteRoute);
 
 connect();
 app.listen(port, () => {
