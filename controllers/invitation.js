@@ -58,6 +58,7 @@ export const acceptInvitation = async (req, res) => {
 			receiverId: req.body.senderId,
 			inviteCode: validInvite.inviteCode,
 			chatroomId: validInvite.senderId + "HEARTSTRINGS" + req.body.senderId,
+			ids: [validInvite.senderId, req.body.senderId],
 		});
 		const savedChatroom = await newChatroom.save();
 		return res.status(201).json({

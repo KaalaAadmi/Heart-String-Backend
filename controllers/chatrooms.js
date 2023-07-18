@@ -5,27 +5,21 @@ import ChatRoom from "./../models/Chatroom.js";
 dotenv.config();
 
 export const getChatRoom = async (req, res) => {
-	try {
-		const chatRoom = await ChatRoom.findOne({
-			senderId: req.body.id,
-		});
-		if (!chatRoom) {
-			return res
-				.status(401)
-				.json({ success: false, message: "No chatroom found" });
-		} else {
-			return res.status(200).json({
-				success: true,
-				chatRoom,
-			});
-		}
-	} catch (error) {
-		console.error(JSON.stringify(error));
-		return res.status(500).json({
-			success: false,
-			error: error.message,
-		});
-	}
+	const { id } = req.body;
+
+  try {
+    const result = await ChatRoom.findOne({ ids: { $in: id } }).exec();
+
+    if (result) {
+      // ID found, return the result
+      res.status(200).json(result);
+    } else {
+      // ID not found
+      res.status(404).json({ message: 'ID not found' });
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Internal server error' });
+  }
 };
 
 export const createChatRoom = async (req, res) => {

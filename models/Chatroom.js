@@ -18,6 +18,12 @@ const ChatRoomSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	ids:[
+		{
+			type: mongoose.Schema.Types.ObjectId,
+			required: true,
+		}
+	]
 });
 
 export default mongoose.model("ChatRoom", ChatRoomSchema);
