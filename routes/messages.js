@@ -9,7 +9,7 @@ import path from "path";
 import fs from "fs";
 
 const router = express.Router();
-// const __dirname = path.resolve();
+const __dirname = path.resolve();
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
 		cb(null, path.resolve(__dirname,"./files"));
