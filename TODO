@@ -1,2 +1,3 @@
 ✅ - make create invitations endpoint which will store the invitecode and the senderId to the database.
 ✅ - make accepting invitations endpoint which will check for the invitecode and then create a chatroom.
+- Do not allow users to  create chatrooms with themselves. right now it is required for testing.
