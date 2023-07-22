@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import path from "path";
 
 import authRoute from "./routes/auth.js";
 import chatRoute from "./routes/chat.js";
@@ -12,7 +13,7 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 8000;
 const api = process.env.API_URI;
-
+const __dirname = path.resolve();
 
 const connect = () => {
     mongoose
