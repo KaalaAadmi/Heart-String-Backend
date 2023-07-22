@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import path from "path";
+// import path from "path";
 
 import authRoute from "./routes/auth.js";
 import chatRoute from "./routes/chat.js";
@@ -13,7 +13,7 @@ const app = express();
 dotenv.config();
 const port = process.env.PORT || 8000;
 const api = process.env.API_URI;
-const __dirname = path.resolve();
+// const __dirname = path.resolve();
 
 const connect = () => {
     mongoose
@@ -33,7 +33,7 @@ app.get(`${api}/hello`, (req, res) => {
 app.use(`${api}/auth`, authRoute);
 app.use(`${api}/chat`, chatRoute);
 app.use(`${api}/invite`, inviteRoute);
-app.use(express.static(__dirname));
+// app.use(express.static(__dirname));
 app.use(`${api}/message`, messageRoute);
 connect();
 app.listen(port, () => {
