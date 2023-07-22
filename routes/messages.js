@@ -1,5 +1,5 @@
 import express from "express";
-import { getMessages, getUserDetails, uploadMessages } from "../controllers/messages";
+import { getMessages, getUserDetails, uploadMessages } from "../controllers/messages.js";
 import multer from "multer";
 
 const router = express.Router();

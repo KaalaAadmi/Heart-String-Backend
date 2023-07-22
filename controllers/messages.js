@@ -21,30 +21,32 @@ export const uploadMessages = async (req, res) => {
 
 // endpoint to get the userdetails to design the chat room header
 export const getUserDetails = async (req, res) => {
-  try {
-    const {userId}=req.params
-    // fetch the user details from the database
-    const recipientId=await User.findById(userId)
-    res.json(recipientId)
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({error:"Internal server error"})
-  }
-}
+	try {
+		const { userId } = req.params;
+		// fetch the user details from the database
+		const recipientId = await User.findById(userId);
+		res.json(recipientId);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+};
 
 // endpoint to fetch the messages between two users in the chatroom
 export const getMessages = async (req, res) => {
-  try {
-    const {senderId,recipientId}=req.params
-    const messages=awaitMessage.findOne({
-      $or:[
-        {senderId:senderId,recipientId:recipientId},
-        {senderId:recipientId,recipientId:senderId}
-      ]
-    }).populate("senderId", "_id name")
-    res.json(messages) 
-  } catch (error) {
-    console.log(error)
-    res.status(500).json({error:"Internal server error"})
-  }
-}
+	try {
+		const { senderId, recipientId } = req.params;
+		const messages = awaitMessage
+			.findOne({
+				$or: [
+					{ senderId: senderId, recipientId: recipientId },
+					{ senderId: recipientId, recipientId: senderId },
+				],
+			})
+			.populate("senderId", "_id name");
+		res.json(messages);
+	} catch (error) {
+		console.log(error);
+		res.status(500).json({ error: "Internal server error" });
+	}
+};
