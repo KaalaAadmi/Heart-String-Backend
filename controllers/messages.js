@@ -3,14 +3,15 @@ import User from "./../models/User.js";
 
 export const uploadMessages = async (req, res) => {
 	try {
-		const { senderId, recipientId, messageType, messageText } =
-			req.body;
-		console.log(req.body);
+		const { senderId, recipientId, messageType } = req.body;
+		console.log("senderId", senderId);
+		console.log("recipientId", recipientId);
+		console.log("messageType", messageType);
 		const newMessage = new Message({
 			senderId,
 			recipientId,
 			messageType,
-			message: messageText,
+			message: messageType === "text" ? req.body.messageText : "",
 			timeStamp: new Date(),
 			imageUrl: messageType === "image" ? req.body.imageUrl : "",
 		});
@@ -51,3 +52,18 @@ export const getMessages = async (req, res) => {
 		res.status(500).json({ error: "Internal server error" });
 	}
 };
+
+// endpoint to delete messages
+export const deleteMessages = async (req, res) => {
+	try {
+		const {messages}=req.body
+		if(!Array.isArray(messages)||messages.length===0){
+			return res.status(400).json({error:"Invalid request"})
+		}
+		await Message.deleteMany({_id:{$in:messages}})
+		res.status(200).json({message:"Messages deleted successfully"})
+	} catch (error) {
+		console.log(error)
+		res.status(500).json({error:"Internal server error"})
+	}
+}

@@ -1,5 +1,6 @@
 import express from "express";
 import {
+	deleteMessages,
 	getMessages,
 	getUserDetails,
 	uploadMessages,
@@ -29,4 +30,5 @@ router.post("/messages", uploadMessages);
 
 router.get("/user/:id", getUserDetails);
 router.get("/:senderId/:recipientId", getMessages);
+router.post('delete-messages',deleteMessages)
 export default router;
