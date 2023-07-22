@@ -32,6 +32,7 @@ app.get(`${api}/hello`, (req, res) => {
 app.use(`${api}/auth`, authRoute);
 app.use(`${api}/chat`, chatRoute);
 app.use(`${api}/invite`, inviteRoute);
+app.use(express.static(__dirname));
 app.use(`${api}/message`, messageRoute);
 connect();
 app.listen(port, () => {
