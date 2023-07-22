@@ -11,7 +11,7 @@ export const uploadMessages = async (req, res) => {
 			messageType,
 			message:messageText,
 			timeStamp: new Date(),
-			imageUrl: messageType === "image" ? req.imageFile.uri : "",
+			imageUrl: messageType === "image" ? req.path.uri : "",
 		});
 		await newMessage.save();
 		res.status(200).json({ message: "Message sent successfully", newMessage });
