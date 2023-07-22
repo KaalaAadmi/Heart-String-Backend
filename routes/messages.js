@@ -1,5 +1,6 @@
 import express from "express";
 import { getMessages, getUserDetails, uploadMessages } from "../controllers/messages";
+import multer from "multer";
 
 const router = express.Router();
 const upload =multer({storage:storage})
