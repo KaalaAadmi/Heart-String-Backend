@@ -37,7 +37,7 @@ export const getUserDetails = async (req, res) => {
 export const getMessages = async (req, res) => {
 	try {
 		const { senderId, recipientId } = req.params;
-		const messages = awaitMessage
+		const messages = await Message
 			.findOne({
 				$or: [
 					{ senderId: senderId, recipientId: recipientId },
@@ -45,7 +45,7 @@ export const getMessages = async (req, res) => {
 				],
 			})
 			.populate("senderId", "_id name");
-		res.json(messages);
+		res.status(200).json(messages);
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ error: "Internal server error" });
