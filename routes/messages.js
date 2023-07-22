@@ -30,5 +30,5 @@ router.post("/messages", uploadMessages);
 
 router.get("/user/:id", getUserDetails);
 router.get("/:senderId/:recipientId", getMessages);
-router.post('delete-messages',deleteMessages)
+router.post('/delete-messages',deleteMessages)
 export default router;
