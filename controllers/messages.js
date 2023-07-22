@@ -8,7 +8,7 @@ export const uploadMessages = async (req, res) => {
 			senderId,
 			recipientId,
 			messageType,
-			messageText,
+			message:messageText,
 			timeStamp: new Date(),
 			imageUrl: messageType === "image" ? req.file.path : "",
 		});
