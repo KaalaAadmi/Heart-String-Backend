@@ -12,20 +12,20 @@ export const uploadMessages = async (req, res) => {
 			timeStamp: new Date(),
 			imageUrl: messageType === "image" ? req.file.path : "",
 		});
-		res.status(200).json({ message: "Message sent successfully" });
+		res.status(200).json({ message: "Message sent successfully",newMessage });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: "Internal server error" });
 	}
 };
 
-// endpoint to get the userdetails to design the chat room header
+// endpoint to get the user details to design the chat room header
 export const getUserDetails = async (req, res) => {
 	try {
-		const { userId } = req.params;
+		const { id } = req.params;
 		// fetch the user details from the database
-		const recipientId = await User.findById(userId);
-		res.json(recipientId);
+		const recipient = await User.findById(id);
+		res.status(200).send({recipient:recipient});
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ error: "Internal server error" });
