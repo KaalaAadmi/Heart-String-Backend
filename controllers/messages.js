@@ -3,7 +3,7 @@ import User from "./../models/User.js";
 
 export const uploadMessages = async (req, res) => {
 	try {
-		const { senderId, recipientId, messageType, messageText } = req.body;
+		const { senderId, recipientId, messageType, messageText,imageUrl } = req.body;
 		console.log(req.body)
 		const newMessage = new Message({
 			senderId,
@@ -11,7 +11,7 @@ export const uploadMessages = async (req, res) => {
 			messageType,
 			message:messageText,
 			timeStamp: new Date(),
-			imageUrl: messageType === "image" ? req.path.uri : "",
+			imageUrl: messageType === "image" ? imageUrl: "",
 		});
 		await newMessage.save();
 		res.status(200).json({ message: "Message sent successfully", newMessage });
