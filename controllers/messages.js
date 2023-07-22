@@ -12,7 +12,8 @@ export const uploadMessages = async (req, res) => {
 			timeStamp: new Date(),
 			imageUrl: messageType === "image" ? req.file.path : "",
 		});
-		res.status(200).json({ message: "Message sent successfully",newMessage });
+		await newMessage.save();
+		res.status(200).json({ message: "Message sent successfully", newMessage });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ message: "Internal server error" });
@@ -25,7 +26,7 @@ export const getUserDetails = async (req, res) => {
 		const { id } = req.params;
 		// fetch the user details from the database
 		const recipient = await User.findById(id);
-		res.status(200).send({recipient:recipient});
+		res.status(200).send({ recipient: recipient });
 	} catch (error) {
 		console.log(error);
 		res.status(500).json({ error: "Internal server error" });
