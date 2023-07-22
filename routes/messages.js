@@ -5,12 +5,13 @@ import {
 	uploadMessages,
 } from "../controllers/messages.js";
 import multer from "multer";
+import path from "path";
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
 	destination: function (req, file, cb) {
-		cb(null, "./uploads/");
+		cb(null, path.join(__dirname,"./uploads/"));
 	},
 	filename: function (req, file, cb) {
 		// Generate a unique filename for the upload file
