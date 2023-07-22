@@ -3,21 +3,22 @@ import User from "./../models/User.js";
 
 export const uploadMessages = async (req, res) => {
 	try {
-		const { senderId, recipientId, messageType, messageText,imageUrl } = req.body;
-		console.log(req.body)
+		const { senderId, recipientId, messageType, messageText } =
+			req.body;
+		console.log(req.body);
 		const newMessage = new Message({
 			senderId,
 			recipientId,
 			messageType,
-			message:messageText,
+			message: messageText,
 			timeStamp: new Date(),
-			imageUrl: messageType === "image" ? imageUrl: "",
+			imageUrl: messageType === "image" ? req.body.imageUrl : "",
 		});
 		await newMessage.save();
 		res.status(200).json({ message: "Message sent successfully", newMessage });
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({ message: "Internal server error", error:error });
+		res.status(500).json({ message: "Internal server error", error: error });
 	}
 };
 
@@ -38,14 +39,12 @@ export const getUserDetails = async (req, res) => {
 export const getMessages = async (req, res) => {
 	try {
 		const { senderId, recipientId } = req.params;
-		const messages = await Message
-			.find({
-				$or: [
-					{ senderId: senderId, recipientId: recipientId },
-					{ senderId: recipientId, recipientId: senderId },
-				],
-			})
-			.populate("senderId", "_id name");
+		const messages = await Message.find({
+			$or: [
+				{ senderId: senderId, recipientId: recipientId },
+				{ senderId: recipientId, recipientId: senderId },
+			],
+		}).populate("senderId", "_id name");
 		res.status(200).json(messages);
 	} catch (error) {
 		console.log(error);
